@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './screens/Login'; // Adjust the path if needed
+import Login from './screens/Login/Login'; // Adjust the path if needed
 
 function App() {
   return (
