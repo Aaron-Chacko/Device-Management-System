@@ -5,7 +5,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import aquilagusLogo from "../images/favicon_logo.jpg"; // Import your logo image
+import aquilagusLogo from "../../images/favicon_logo.jpg"; // Import your logo image
 import TextField from "@mui/material/TextField";
 import "./Login.css"; // Adjust the path if needed
 import Checkbox from "@mui/material/Checkbox";
@@ -51,7 +51,7 @@ const card = (
           fontFamily: "Russo One, sans-serif",
           color: "#FF6500",
           fontSize: 30,
-          fontWeight: "bold",
+          fontWeight: "semi-bold",
           textShadow: "0px 0px 5px rgba(255, 101, 0, 0.75)", // Softer glow
           animation: "pulse 2s infinite",
         }}
