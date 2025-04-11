@@ -1,0 +1,55 @@
+.device-list-container {
+    padding: 40px 50px;
+    min-height: 100vh;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background-image: url('../../../images/dashbaord.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .device-table {
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: "Orbitron", sans-serif;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .MuiTableCell-root {
+    font-size: 16px;
+    color: #333;
+  }
+
+  .MuiTableRow-root:hover {
+    background-color: rgba(255, 101, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .MuiTableHead-root .MuiTableRow-root:hover {
+    background-color: inherit !important;
+    cursor: default !important;
+  }  
+
+  .MuiTableHead-root {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+  }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #ff6500;
+    border-radius: 20px;
+  }
+  
+  
+  

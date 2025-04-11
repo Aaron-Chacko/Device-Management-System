@@ -1,0 +1,29 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 15px 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Orbitron', sans-serif;
+  }
+  
+  .logo {
+    color: #ff6500;
+    font-size: 24px;
+  }
+  
+  .nav-links a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #ff6500;
+  }
+  
