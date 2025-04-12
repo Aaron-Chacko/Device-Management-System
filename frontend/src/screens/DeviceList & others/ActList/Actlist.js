@@ -1,21 +1,69 @@
 import React from "react";
 import "./Actlist.css";
-import { Box, Typography, Table, TableHead, TableRow, TableCell, TableBody, Paper, AppBar, Toolbar, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Paper,
+  AppBar,
+  Toolbar,
+  Button,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 
-const network = [
-  { id: 1, name: "Host_10_132", routersn: "CR20X02109250292", group: "Credo", status: "Online", location: "9", version: "1", network: "1", activity: "1"},
-  { id: 2, name: "Host_10_107", routersn: "CR20XQ2308150417", group: "Credo", status: "Online", location: "9", version: "2", network: "2", activity: "2"},
-  { id: 3, name: "host_10_87", routersn: "CR20XQ2401260370", group: "Credo", status: "Online", location: "7", version: "2", network: "3", activity: "3"},
-  { id: 4, name: "Router", routersn: "CR20XQ2406150734", group: "Credo", status: "Offline", location: "9", version: "3", network: "4", activity: "4"},
-  { id: 5, name: "Host_10_103", routersn: "CR20XQ2406150843", group: "Credo", status: "Online", location: "4", version: "4", network: "5", activity: "5"},
-  { id: 6, name: "S27", routersn: "CR10WQ2303280121", group: "Credo", status: "Online", location: "4", version: "5", network: "6", activity: "6"},
-  { id: 7, name: "S24", routersn: "CR10WQ2303280131", group: "Credo", status: "Online", location: "5", version: "5", network: "7", activity: "7"},
+const activity = [
+  {
+    id: 1,
+    create: "2025-01-20 14:24:04",
+    login: "2025-01-29 12:01:15",
+    last: "2025-01-29 15:47:55",
+  },
+  {
+    id: 2,
+    create: "2025-01-20 15:21:01",
+    login: "2025-01-31 15:01:10",
+    last: "2025-01-31 18:34:31",
+  },
+  {
+    id: 3,
+    create: "2025-01-20 15:20:05",
+    login: "2025-01-31 15:00:15",
+    last: "2025-01-31 18:34:32",
+  },
+  {
+    id: 4,
+    create: "2025-01-20 15:30:14",
+    login: "2025-01-21 16:21:50",
+    last: "2025-01-22 10:05:39",
+  },
+  {
+    id: 5,
+    create: "2025-01-20 15:26:55",
+    login: "2025-01-31 16:21:12",
+    last: "2025-01-31 18:35:11",
+  },
+  {
+    id: 6,
+    create: "2023-12-21 13:43:14",
+    login: "2025-03-25 18:45:54",
+    last: "2025-03-28 12:06:36",
+  },
+  {
+    id: 7,
+    create: "2023-12-19 18:32:40",
+    login: "2025-03-22 12:15:33",
+    last: "2025-03-28 12:06:11",
+  },
 ];
 
-const NetworkList = () => {
+const ActivityList = () => {
   return (
-
-      <Box className="list-container">
+    <Box className="list-container">
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
         <Typography
           variant="h4"
           className="list-heading"
@@ -26,46 +74,53 @@ const NetworkList = () => {
             fontWeight: "bold",
             textShadow: "0px 0px 5px rgba(255, 101, 0, 0.75)",
             animation: "pulse 2s infinite",
-            marginBottom: 4,
           }}
         >
-          Network List
+          Activity List
         </Typography>
-
-        <Paper elevation={4} className="table">
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell><b>ID</b></TableCell>
-                <TableCell><b>Name</b></TableCell>
-                <TableCell><b>RouterSN</b></TableCell>
-                <TableCell><b>Group</b></TableCell>
-                <TableCell><b>Online Status</b></TableCell>
-                <TableCell><b>LocationID</b></TableCell>
-                <TableCell><b>VersionID</b></TableCell>
-                <TableCell><b>NetworkID</b></TableCell>
-                <TableCell><b>ActivityID</b></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {network.map((network) => (
-                <TableRow key={network.id}>
-                  <TableCell>{network.id}</TableCell>
-                  <TableCell>{network.name}</TableCell>
-                  <TableCell>{network.routersn}</TableCell>
-                  <TableCell>{network.group}</TableCell>
-                  <TableCell>{network.status}</TableCell>
-                  <TableCell>{network.location}</TableCell>
-                  <TableCell>{network.version}</TableCell>
-                  <TableCell>{network.network}</TableCell>
-                  <TableCell>{network.activity}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Paper>
+  
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#FF6500" }}
+          component={Link}
+          to="/dashboard"
+        >
+          Dashboard
+        </Button>
       </Box>
+
+      <Paper elevation={4} className="table">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <b>ID</b>
+              </TableCell>
+              <TableCell>
+                <b>Create Time</b>
+              </TableCell>
+              <TableCell>
+                <b>Login Time</b>
+              </TableCell>
+              <TableCell>
+                <b>Last Connect</b>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {activity.map((activity) => (
+              <TableRow key={activity.id}>
+                <TableCell>{activity.id}</TableCell>
+                <TableCell>{activity.create}</TableCell>
+                <TableCell>{activity.login}</TableCell>
+                <TableCell>{activity.last}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
+    </Box>
   );
 };
 
-export default NetworkList;
+export default ActivityList;

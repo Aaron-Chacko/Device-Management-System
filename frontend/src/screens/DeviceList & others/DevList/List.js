@@ -1,6 +1,7 @@
 import React from "react";
 import "./List.css";
 import { Box, Typography, Table, TableHead, TableRow, TableCell, TableBody, Paper, AppBar, Toolbar, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const devices = [
   { id: 1, name: "Host_10_132", routersn: "CR20X02109250292", group: "Credo", status: "Online", location: "9", version: "1", network: "1", activity: "1"},
@@ -14,11 +15,11 @@ const devices = [
 
 const DeviceList = () => {
   return (
-
-      <Box className="device-list-container">
+    <Box className="list-container">
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
         <Typography
           variant="h4"
-          className="device-list-heading"
+          className="list-heading"
           sx={{
             fontFamily: "Audiowide, sans-serif",
             color: "#FF6500",
@@ -26,11 +27,20 @@ const DeviceList = () => {
             fontWeight: "bold",
             textShadow: "0px 0px 5px rgba(255, 101, 0, 0.75)",
             animation: "pulse 2s infinite",
-            marginBottom: 4,
           }}
         >
           Device List
         </Typography>
+  
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#FF6500" }}
+          component={Link}
+          to="/dashboard"
+        >
+          Dashboard
+        </Button>
+      </Box>  
 
         <Paper elevation={4} className="device-table">
           <Table>

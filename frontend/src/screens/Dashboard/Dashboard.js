@@ -124,7 +124,7 @@ const Dashboard = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
             <DashboardCard
-              title="Add Devices"
+              title="Add or Edit"
               icon={<AddBoxIcon className="dashboard-icon" />}
               count="+"
             />

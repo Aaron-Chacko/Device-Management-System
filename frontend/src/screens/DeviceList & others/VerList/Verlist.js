@@ -1,21 +1,22 @@
 import React from "react";
 import "./Verlist.css";
 import { Box, Typography, Table, TableHead, TableRow, TableCell, TableBody, Paper, AppBar, Toolbar, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
-const network = [
-  { id: 1, name: "Host_10_132", routersn: "CR20X02109250292", group: "Credo", status: "Online", location: "9", version: "1", network: "1", activity: "1"},
-  { id: 2, name: "Host_10_107", routersn: "CR20XQ2308150417", group: "Credo", status: "Online", location: "9", version: "2", network: "2", activity: "2"},
-  { id: 3, name: "host_10_87", routersn: "CR20XQ2401260370", group: "Credo", status: "Online", location: "7", version: "2", network: "3", activity: "3"},
-  { id: 4, name: "Router", routersn: "CR20XQ2406150734", group: "Credo", status: "Offline", location: "9", version: "3", network: "4", activity: "4"},
-  { id: 5, name: "Host_10_103", routersn: "CR20XQ2406150843", group: "Credo", status: "Online", location: "4", version: "4", network: "5", activity: "5"},
-  { id: 6, name: "S27", routersn: "CR10WQ2303280121", group: "Credo", status: "Online", location: "4", version: "5", network: "6", activity: "6"},
-  { id: 7, name: "S24", routersn: "CR10WQ2303280131", group: "Credo", status: "Online", location: "5", version: "5", network: "7", activity: "7"},
+const version = [
+  { id: 1, soft: "V2.3.0_240520", hard: "V10"},
+  { id: 2, soft: "CRE_APP_V2.3.0_2411251425", hard: "CR2020_V2A"},
+  { id: 3, soft: "CRE_APP_V2.3.0_2501171659", hard: "CR2020V2_V2A"},
+  { id: 4, soft: "CRE_APP_V2.3.0_2501070025", hard: "CR2020_V2A"},
+  { id: 5, soft: "V2.3.0_221217", hard: "V2A"},
+  { id: 6, soft: "V2.3.0_221203", hard: "V2A"},
+  { id: 7, soft: "V2.3.0_230302", hard: "V2A"},
 ];
 
-const NetworkList = () => {
+const VersionList = () => {
   return (
-
-      <Box className="list-container">
+    <Box className="list-container">
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
         <Typography
           variant="h4"
           className="list-heading"
@@ -26,39 +27,37 @@ const NetworkList = () => {
             fontWeight: "bold",
             textShadow: "0px 0px 5px rgba(255, 101, 0, 0.75)",
             animation: "pulse 2s infinite",
-            marginBottom: 4,
           }}
         >
-          Network List
+          Version List
         </Typography>
+  
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#FF6500" }}
+          component={Link}
+          to="/dashboard"
+        >
+          Dashboard
+        </Button>
+      </Box>
+  
 
         <Paper elevation={4} className="table">
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell><b>ID</b></TableCell>
-                <TableCell><b>Name</b></TableCell>
-                <TableCell><b>RouterSN</b></TableCell>
-                <TableCell><b>Group</b></TableCell>
-                <TableCell><b>Online Status</b></TableCell>
-                <TableCell><b>LocationID</b></TableCell>
-                <TableCell><b>VersionID</b></TableCell>
-                <TableCell><b>NetworkID</b></TableCell>
-                <TableCell><b>ActivityID</b></TableCell>
+                <TableCell><b>Soft Version</b></TableCell>
+                <TableCell><b>Hard Version</b></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {network.map((network) => (
-                <TableRow key={network.id}>
-                  <TableCell>{network.id}</TableCell>
-                  <TableCell>{network.name}</TableCell>
-                  <TableCell>{network.routersn}</TableCell>
-                  <TableCell>{network.group}</TableCell>
-                  <TableCell>{network.status}</TableCell>
-                  <TableCell>{network.location}</TableCell>
-                  <TableCell>{network.version}</TableCell>
-                  <TableCell>{network.network}</TableCell>
-                  <TableCell>{network.activity}</TableCell>
+              {version.map((version) => (
+                <TableRow key={version.id}>
+                  <TableCell>{version.id}</TableCell>
+                  <TableCell>{version.soft}</TableCell>
+                  <TableCell>{version.hard}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -68,4 +67,4 @@ const NetworkList = () => {
   );
 };
 
-export default NetworkList;
+export default VersionList;

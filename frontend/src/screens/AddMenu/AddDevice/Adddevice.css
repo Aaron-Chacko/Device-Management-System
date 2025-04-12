@@ -1,0 +1,30 @@
+.add-device-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .add-device-form {
+    padding: 20px;
+    width: 400px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-heading {
+    text-align: center;
+    color: #FF6500;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #FF6500;
+    color: white;
+  }
+  
