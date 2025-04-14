@@ -4,6 +4,10 @@
     align-items: center;
     min-height: 100vh;
     background-color: #f4f4f4;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../../../images/edit.jpg");
   }
   
   .add-version-form {

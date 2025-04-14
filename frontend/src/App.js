@@ -14,7 +14,7 @@ import Layout from "./Components/layout";
 import NetworkList from "./screens/DeviceList & others/NetList/Netlist";
 import VersionList from "./screens/DeviceList & others/VerList/Verlist";
 import ActivityList from "./screens/DeviceList & others/ActList/Actlist";
-import AddMenu from "./screens/AddMenu/menu";
+import AddMenu from "./screens/AddMenu/Menu/menu";
 import AddDevice from "./screens/AddMenu/AddDevice/Adddevice";
 import AddNetwork from "./screens/AddMenu/AddNetwork/Addnetwork";
 import AddVersion from "./screens/AddMenu/AddVersion/Addversion";

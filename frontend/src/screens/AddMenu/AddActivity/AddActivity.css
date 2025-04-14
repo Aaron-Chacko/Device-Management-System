@@ -1,57 +1,41 @@
-/* AddActivity.css */
+/* Addactivity.css */
 
 .add-activity-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #f4f4f9;
-    height: 100vh;
-  }
-  
-  .add-activity-heading {
-    font-family: 'Audiowide', sans-serif;
-    color: #FF6500;
-    font-size: 36px;
-    font-weight: bold;
-    text-shadow: 0px 0px 5px rgba(255, 101, 0, 0.75);
-    animation: pulse 2s infinite;
-    margin-bottom: 30px;
-  }
-  
-  .activity-form {
-    width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .activity-form .MuiTextField-root {
-    margin-bottom: 16px;
-  }
-  
-  .activity-form button {
-    background-color: #FF6500;
-    color: white;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .activity-form button:hover {
-    background-color: #e64a00;
-  }
-  
-  @media (max-width: 768px) {
-    .add-activity-container {
-      padding: 10px;
-    }
-  
-    .activity-form {
-      width: 100%;
-    }
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  background-image: url('../../../images/edit.jpg') /* adjust path if needed */
+}
+
+.add-activity-form {
+  padding: 30px;
+  width: 100%;
+  max-width: 500px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.form-heading {
+  text-align: center;
+  font-family: 'Audiowide', sans-serif;
+  color: #FF6500;
+  margin-bottom: 20px;
+  text-shadow: 0px 0px 5px rgba(255, 101, 0, 0.6);
+}
+
+.submit-button {
+  background-color: #FF6500 !important;
+  color: white !important;
+  margin-top: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #e64a00 !important;
+}

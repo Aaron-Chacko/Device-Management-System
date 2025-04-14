@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Grid, Card, CardContent, CardActionArea } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./menu.css"; 
+import bg from '../../../images/edit.jpg';
 
 const AddMenu = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const AddMenu = () => {
   ];
 
   return (
-    <Box className="addmenu-container">
+    <Box className="addmenu-container" style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', height: '100vh', padding: '20px' }}>
       <Typography
         variant="h4"
         sx={{
@@ -22,12 +23,12 @@ const AddMenu = () => {
           color: "#FF6500",
           fontWeight: "bold",
           textAlign: "center",
-          mb: 4,
+          mb: 6,
         }}
       >
         What do you want to add?
       </Typography>
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={6} justifyContent="center">
         {options.map((option) => (
           <Grid item xs={12} sm={6} md={3} key={option.title}>
             <Card sx={{ borderRadius: 4, boxShadow: 3 }}>
