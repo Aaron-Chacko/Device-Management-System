@@ -36,6 +36,7 @@
   .dashboard-card:hover {
     box-shadow: 0 0 15px rgba(255, 101, 0, 0.3);
     transform: scale(1.03);
+    animation: pulse 2s infinite;
   }
   
   .card-content {
@@ -61,6 +62,7 @@
     margin-bottom: 8px;
   }
   
+  
   .card-count {
     font-family: 'Russo One', sans-serif;
     font-size: 28px;
@@ -73,8 +75,8 @@
     100% { transform: scale(1); }
   }
   
-  .card-content:hover {
-    animation: pulse 1.2s ease-in-out;
+  .dashboard-heading {
+    animation: pulse 2s infinite;
   }
-
+  
   
