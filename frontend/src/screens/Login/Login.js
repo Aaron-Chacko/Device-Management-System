@@ -47,17 +47,18 @@ const card = (
       />
       <Typography
         gutterBottom
+        className="pulse-heading"
         sx={{
           fontFamily: "Russo One, sans-serif",
           color: "#FF6500",
           fontSize: 30,
           fontWeight: "semi-bold",
-          textShadow: "0px 0px 5px rgba(255, 101, 0, 0.75)", // Softer glow
-          animation: "pulse 2s infinite",
+          textShadow: "0px 0px 5px rgba(255, 101, 0, 0.75)",
         }}
       >
         Tenet Networks Private Limited
       </Typography>
+
       <Typography
         variant="h6"
         component="div"
