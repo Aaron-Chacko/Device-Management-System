@@ -3,12 +3,14 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f4f4f4;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url("../../../images/edit.jpg");
+  padding: 20px;
+  overflow: hidden; /* Prevent outer scroll */
 }
+
 
 .add-network-form {
   padding: 20px;
@@ -16,7 +18,10 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 80vh; /* Limits height like your device form */
+  overflow-y: auto; /* Enables internal scroll */
 }
+
 
 .form-heading {
   text-align: center;
