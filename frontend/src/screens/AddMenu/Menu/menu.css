@@ -13,6 +13,7 @@
   background-image: url("../../../images/edit.jpg");
 }
 
+
 .add-menu-heading {
   font-family: "Audiowide", sans-serif;
   color: #ff6500;
@@ -76,3 +77,4 @@
     align-items: center;
   }
 }
+
