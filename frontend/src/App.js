@@ -19,6 +19,7 @@ import AddDevice from "./screens/AddMenu/AddDevice/Adddevice";
 import AddNetwork from "./screens/AddMenu/AddNetwork/Addnetwork";
 import AddVersion from "./screens/AddMenu/AddVersion/Addversion";
 import AddActivity from "./screens/AddMenu/AddActivity/Addactivity";
+import Profile from "./screens/Profile/profile";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/edit/network" element={<AddNetwork />} />
         <Route path="/edit/version" element={<AddVersion />} />
         <Route path="/edit/activity" element={<AddActivity />} />
+        <Route path="/profile" element={<Profile />} />
 
         {/* Redirect everything else to login, kinda like error handling */}
         <Route path="*" element={<Navigate to="/login" />} />
