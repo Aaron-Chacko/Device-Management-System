@@ -14,6 +14,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useState } from "react";
 
 const bull = (
   <Box
@@ -23,6 +24,7 @@ const bull = (
     •
   </Box>
 );
+
 function Languagedropdown() {
   return (
     <div
@@ -35,152 +37,166 @@ function Languagedropdown() {
     ></div>
   );
 }
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-const card = (
-  <React.Fragment>
-    <CardContent>
-      {/* Display the logo as a small icon */}
-      <img
-        src={aquilagusLogo}
-        alt="Aquilagus Logo"
-        style={{ width: "50px", height: "50px", marginBottom: "10px" }}
-      />
-      <Typography
-        gutterBottom
-        className="pulse-heading"
-        sx={{
-          fontFamily: "Russo One, sans-serif",
-          color: "#FF6500",
-          fontSize: 30,
-          fontWeight: "semi-bold",
-          textShadow: "0px 0px 5px rgba(255, 101, 0, 0.75)",
-        }}
-      >
-        Tenet Networks Private Limited
-      </Typography>
 
-      <Typography
-        variant="h6"
-        component="div"
-        sx={{ marginBottom: "20px", fontFamily: "Audiowide, sans-serif" }}
-      >
-        {bull}Device{bull}Management{bull}Login{bull}
-      </Typography>
-      <Typography>
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
+function App() {
+  const [alias, setAlias] = useState("");
+  const [code, setCode] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/login", { // Update URL later
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: alias, password: code })
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        alert("Login successful 🎉");
+        // Redirect to dashboard here
+      } else {
+        alert("Invalid credentials 😬");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server error ⚡");
+    }
+  };
+
+  const card = (
+    <React.Fragment>
+      <CardContent>
+        <img
+          src={aquilagusLogo}
+          alt="Aquilagus Logo"
+          style={{ width: "50px", height: "50px", marginBottom: "10px" }}
+        />
+        <Typography
+          gutterBottom
+          className="pulse-heading"
+          sx={{
+            fontFamily: "Russo One, sans-serif",
+            color: "#FF6500",
+            fontSize: 30,
+            fontWeight: "semi-bold",
+            textShadow: "0px 0px 5px rgba(255, 101, 0, 0.75)",
+          }}
+        >
+          Tenet Networks Private Limited
+        </Typography>
+
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ marginBottom: "20px", fontFamily: "Audiowide, sans-serif" }}
+        >
+          {bull}Device{bull}Management{bull}Login{bull}
+        </Typography>
+        <Typography>
+          <TextField
+            id="outlined-basic"
+            label="Alias"
+            variant="outlined"
+            value={alias}
+            onChange={(e) => setAlias(e.target.value)}
+            sx={{
+              width: "450px",
+              marginBottom: "25px",
+              "&:focus-within": {
+                borderColor: "#FF6500", // border color when focused
+                boxShadow: "0 0 5px #FF6500", //  glow effect on focus
+                transition: "all 0.3s ease", // Smooth transition
+              },
+            }}
+          />
+        </Typography>
         <TextField
           id="outlined-basic"
-          label="Alias"
+          label="Code"
           variant="outlined"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
           sx={{
             width: "450px",
             marginBottom: "25px",
             "&:focus-within": {
-              borderColor: "#FF6500", // border color when focused
+              borderColor: "#FF6500", //  border color when focused
               boxShadow: "0 0 5px #FF6500", //  glow effect on focus
               transition: "all 0.3s ease", // Smooth transition
             },
           }}
         />
-      </Typography>
-      <TextField
-        id="outlined-basic"
-        label="Code"
-        variant="outlined"
-        sx={{
-          width: "450px",
-          marginBottom: "25px",
-          "&:focus-within": {
-            borderColor: "#FF6500", //  border color when focused
-            boxShadow: "0 0 5px #FF6500", //  glow effect on focus
-            transition: "all 0.3s ease", // Smooth transition
-          },
-        }}
-      />
-      <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
-        <Checkbox {...label} sx={{ color: "#FF6500" }} />
-        Remember Me?
-      </Typography>
-      <Typography>
+        <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
+          <Checkbox {...label} sx={{ color: "#FF6500" }} />
+          Remember Me?
+        </Typography>
+        <Typography>
+          <Button
+            variant="contained"
+            sx={{
+              width: "450px",
+              marginBottom: "20px",
+              backgroundColor: "#FF6500",
+              borderRadius: "15px",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
+              "&:hover": {
+                backgroundColor: "orange", // Change the hover color to pink
+                transform: "scale(1.05)",
+              },
+            }}
+            onClick={handleLogin} // Call the handleLogin function on click
+          >
+            Proceed{" "}
+          </Button>
+        </Typography>
         <Button
-          variant="contained"
+          href="#text-buttons"
           sx={{
-            width: "450px",
-            marginBottom: "20px",
-            backgroundColor: "#FF6500",
-            borderRadius: "15px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
+            fontFamily: "Arial, sans-serif",
+            fontSize: "13px",
+            color: "#FF6500", // Set the text color to your theme
+            textDecoration: "none", // Optional: removes the underline from the link
             "&:hover": {
-              backgroundColor: "orange", // Change the hover color to pink
-              transform: "scale(1.05)",
+              color: "#FF4500", // Change color on hover to a darker shade
             },
           }}
         >
-          Proceed{" "}
+          Forgot Password?
         </Button>
-      </Typography>
-      <Button
-        href="#text-buttons"
-        sx={{
-          fontFamily: "Arial, sans-serif",
-          fontSize: "13px",
-          color: "#FF6500", // Set the text color to your theme
-          textDecoration: "none", // Optional: removes the underline from the link
-          "&:hover": {
-            color: "#FF4500", // Change color on hover to a darker shade
-          },
-        }}
-      >
-        Forgot Password?
-      </Button>
 
-      <Languagedropdown />
-    </CardContent>
-    <CardActions sx={{ justifyContent: "space-between" }}>
-      <Button
-        size="small"
-        sx={{
-          color: "#FF6500", // Set text color to theme color
-          "&:hover": {
-            color: "#FF4500", // Darker shade on hover
-            backgroundColor: "transparent", // Remove background color on hover
-          },
-        }}
-      >
-        Learn More
-      </Button>
-      <Button
-        size="small"
-        sx={{
-          color: "#FF6500", // Set text color to theme color
-          "&:hover": {
-            color: "#FF4500", // Darker shade on hover
-            backgroundColor: "transparent", // Remove background color on hover
-          },
-        }}
-      >
-        Enable Cookies?
-      </Button>
-    </CardActions>
-  </React.Fragment>
-);
-
-function OutlinedCard() {
-  return (
-    <Box sx={{ minWidth: 550, minHeight: 550 }}>
-      <Card
-        variant="outlined"
-        sx={{
-          borderRadius: "25px",
-          boxShadow: "0 4px 20px rgba(255, 101, 0, 0.6)", // Orange glow effect
-        }}
-      >
-        <CardContent sx={{ padding: 3 }}>{card}</CardContent>
-      </Card>
-    </Box>
+        <Languagedropdown />
+      </CardContent>
+      <CardActions sx={{ justifyContent: "space-between" }}>
+        <Button
+          size="small"
+          sx={{
+            color: "#FF6500", // Set text color to theme color
+            "&:hover": {
+              color: "#FF4500", // Darker shade on hover
+              backgroundColor: "transparent", // Remove background color on hover
+            },
+          }}
+        >
+          Learn More
+        </Button>
+        <Button
+          size="small"
+          sx={{
+            color: "#FF6500", // Set text color to theme color
+            "&:hover": {
+              color: "#FF4500", // Darker shade on hover
+              backgroundColor: "transparent", // Remove background color on hover
+            },
+          }}
+        >
+          Enable Cookies?
+        </Button>
+      </CardActions>
+    </React.Fragment>
   );
-}
 
-function App() {
   return (
     <div className="App">
       <div className="background">
@@ -193,11 +209,27 @@ function App() {
               boxShadow: 3,
             }}
           >
-            <OutlinedCard />
+            <OutlinedCard card={card} />
           </Box>
         </header>
       </div>
     </div>
+  );
+}
+
+function OutlinedCard({ card }) {
+  return (
+    <Box sx={{ minWidth: 550, minHeight: 550 }}>
+      <Card
+        variant="outlined"
+        sx={{
+          borderRadius: "25px",
+          boxShadow: "0 4px 20px rgba(255, 101, 0, 0.6)", // Orange glow effect
+        }}
+      >
+        <CardContent sx={{ padding: 3 }}>{card}</CardContent>
+      </Card>
+    </Box>
   );
 }
 
