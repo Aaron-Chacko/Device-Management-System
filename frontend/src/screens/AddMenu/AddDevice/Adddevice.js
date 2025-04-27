@@ -17,9 +17,39 @@ const AddDevice = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Device Added Successfully!");
+
+    try {
+      const response = await fetch("http://localhost:5000/add-device", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          deviceID,
+          deviceName,
+          routerSN,
+          group,
+          status,
+          locationID,
+          versionID,
+          networkID,
+          activityID,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert("Device Added Successfully! 🎉");
+        navigate("/edit"); // Update to the route you want to navigate to
+      } else {
+        alert("Failed to add device. 😞");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error, try again later 🚨");
+    }
   };
 
   const handleMenuClick = () => {
