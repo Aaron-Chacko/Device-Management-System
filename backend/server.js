@@ -10,9 +10,6 @@ app.use(bodyParser.json());
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
-  console.log('Username:', username);  // Log incoming username
-  console.log('Password:', password); // Log incoming password
-
   // Make the query case-sensitive using the BINARY keyword
   const query = "SELECT * FROM users WHERE BINARY Username = ? AND BINARY Password = ?";
   db.query(query, [username, password], (err, result) => {

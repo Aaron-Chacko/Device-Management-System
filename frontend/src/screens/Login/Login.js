@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const bull = (
   <Box
@@ -43,6 +44,7 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 function App() {
   const [alias, setAlias] = useState("");
   const [code, setCode] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   const handleLogin = async () => {
     try {
@@ -54,8 +56,8 @@ function App() {
       const data = await response.json();
 
       if (data.success) {
-        alert("Login successful 🎉");
-        // Redirect to dashboard here
+        alert("Login successful 🎉\nProcessing, please wait!");
+        navigate("/dashboard"); // Redirect to dashboard on succesful login
       } else {
         alert("Invalid credentials 😬");
       }
