@@ -4,13 +4,17 @@ const bodyParser = require('body-parser');
 const db = require('./db');  // Import the database connection
 
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
 
+// Enable CORS for cross-origin requests
+app.use(cors());
+
+// Parse incoming requests with JSON payloads
+app.use(express.json());  // Use express.json() instead of bodyParser.json()
+
+// Login route
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
-  // Make the query case-sensitive using the BINARY keyword
   const query = "SELECT * FROM users WHERE BINARY Username = ? AND BINARY Password = ?";
   db.query(query, [username, password], (err, result) => {
     if (err) {
@@ -25,6 +29,7 @@ app.post('/login', async (req, res) => {
   });
 });
 
+// Add activity route
 app.post('/add-activity', (req, res) => {
   const { activityID, createTime, loginTime, lastConnect } = req.body;
 
@@ -38,6 +43,7 @@ app.post('/add-activity', (req, res) => {
   });
 });
 
+// Add device route
 app.post('/add-device', (req, res) => {
   const { deviceID, deviceName, routerSN, group, status, locationID, versionID, networkID, activityID } = req.body;
 
@@ -51,6 +57,7 @@ app.post('/add-device', (req, res) => {
   });
 });
 
+// Add network route
 app.post('/add-network', (req, res) => {
   const { networkID, networkType, networkLoopbackIP, networkLANIP, networkWANIP, networkLANStatus, networkWANStatus } = req.body;
 
@@ -65,6 +72,7 @@ app.post('/add-network', (req, res) => {
   });
 });
 
+// Add version route
 app.post('/add-version', (req, res) => {
   const { versionID, versionsoft, versionhard } = req.body;
 
@@ -79,9 +87,10 @@ app.post('/add-version', (req, res) => {
   });
 });
 
+// Get activities route
 app.get('/get-activities', (req, res) => {
   const query = "SELECT ActivityID, CreateTime, LoginTime, LastConnect FROM deviceactivity"; 
-  console.log("Running query:", query);  // Log the query being executed
+  console.log("Running query:", query);
 
   db.query(query, (err, result) => {
     if (err) {
@@ -89,7 +98,7 @@ app.get('/get-activities', (req, res) => {
       return res.status(500).json({ success: false });
     }
 
-    console.log("Fetched activities:", result);  // Log the fetched data
+    console.log("Fetched activities:", result);
 
     if (result.length === 0) {
       console.log("No activities found in the database.");
@@ -99,6 +108,34 @@ app.get('/get-activities', (req, res) => {
   });
 });
 
+// Assign device route
+app.post('/assign-device', (req, res) => {
+  const { deviceID, location, user } = req.body;
 
+  console.log('Request body:', req.body);
+
+  const query = "INSERT INTO assignments (DeviceID, Location, User) VALUES (?, ?, ?)";
+  db.query(query, [parseInt(deviceID), location, user], (err, result) => {
+    if (err) {
+      console.error("Error inserting device assignment:", err);
+      return res.status(500).json({ success: false });
+    }
+    return res.json({ success: true });
+  });
+});
+
+// Get reports route
+app.get('/api/reports', (req, res) => {
+  const query = "SELECT * FROM assignments";
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error("Error fetching reports:", err);
+      return res.status(500).json({ success: false, message: "Failed to fetch reports" });
+    }
+    console.log("Fetched reports:", result);
+    res.json(result);  // Send the result as JSON
+  });
+});
+
+// Start server
 app.listen(5000, () => console.log("Server running on http://localhost:5000"));
-

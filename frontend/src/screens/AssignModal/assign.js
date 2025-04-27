@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography, TextField, Button, Paper } from "@mui/material";
+import { Box, Typography, TextField, Button, Paper, CircularProgress } from "@mui/material";
 import "./assign.css";
 import { useNavigate } from "react-router-dom";
 
@@ -7,13 +7,55 @@ const AssignDevice = () => {
   const [deviceID, setDeviceID] = useState("");
   const [location, setLocation] = useState("");
   const [user, setUser] = useState("");
+  const [error, setError] = useState("");  // Error state
+  const [loading, setLoading] = useState(false);  // Loading state
 
   const navigate = useNavigate(); // Hook for navigation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit logic for adding the version (you can use an API call here)
-    alert("Device Assigned Successfully!");
+
+    // Basic input validation
+    if (!deviceID || !location || !user) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    setLoading(true); // Start loading when submitting
+
+    try {
+      const response = await fetch("http://localhost:5000/assign-device", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          deviceID,
+          location,
+          user,
+        }),
+      });
+      
+      console.log("API Response Status:", response.status);  // Check response status
+      const data = await response.json();
+      console.log("API Response Data:", data);  // Log the response body
+      
+      if (response.ok) {
+        if (data.success) {
+          alert("Device Assigned Successfully! 🎉");
+          navigate("/dashboard");
+        } else {
+          setError(data.message || "Failed to assign device. 😞");
+        }
+      } else {
+        setError("Failed to assign device. Status: " + response.status);
+      }      
+    } catch (error) {
+      console.error("Error:", error);
+      setError(error.message || "Server error, try again later 🚨");
+    } finally {
+      setLoading(false); // Stop loading when the request is complete
+    }
   };
 
   const handleMenuClick = () => {
@@ -59,14 +101,25 @@ const AssignDevice = () => {
         >
           Assign Device
         </Typography>
+        {error && (
+          <Typography
+            sx={{
+              color: "red",
+              textAlign: "center",
+              marginBottom: 2,
+            }}
+          >
+            {error}
+          </Typography>
+        )}
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Device ID" // change
+            label="Device ID"
             variant="outlined"
             fullWidth
             margin="normal"
-            value={deviceID} // change
-            onChange={(e) => setDeviceID(e.target.value)} // change
+            value={deviceID}
+            onChange={(e) => setDeviceID(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": { borderColor: "#ccc" },
@@ -80,12 +133,12 @@ const AssignDevice = () => {
           />
 
           <TextField
-            label="Location" // change
+            label="Location"
             variant="outlined"
             fullWidth
             margin="normal"
-            value={location} // change
-            onChange={(e) => setLocation(e.target.value)} // change
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": { borderColor: "#ccc" },
@@ -99,12 +152,12 @@ const AssignDevice = () => {
           />
 
           <TextField
-            label="User" // change
+            label="User"
             variant="outlined"
             fullWidth
             margin="normal"
-            value={user} // change
-            onChange={(e) => setUser(e.target.value)} // change
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": { borderColor: "#ccc" },
@@ -135,8 +188,9 @@ const AssignDevice = () => {
                 transform: "scale(1.05)",
               },
             }}
+            disabled={loading} // Disable the button while loading
           >
-            Assign Device
+            {loading ? <CircularProgress size={24} color="inherit" /> : "Assign Device"}
           </Button>
         </form>
       </Paper>

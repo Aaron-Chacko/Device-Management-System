@@ -1,50 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./reports.css";
-import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Button,
-} from "@mui/material";
+import { Box, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-
-const dummyReports = [
-  {
-    id: 1,
-    device: "D001",
-    status: "Assigned",
-    date: "2025-04-01",
-    user: "U001",
-  },
-  {
-    id: 2,
-    device: "D002",
-    status: "Unassigned",
-    date: "2025-03-28",
-    user: "-",
-  },
-  {
-    id: 3,
-    device: "D003",
-    status: "Assigned",
-    date: "2025-03-26",
-    user: "U002",
-  },
-];
 
 const Reports = () => {
   const navigate = useNavigate(); // Initialize navigate
+
+  // State to hold fetched report data
+  const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(true); // For loading state
+  const [error, setError] = useState(null); // For error handling
 
   // Handle navigation to dashboard
   const handleMenuClick = () => {
     navigate("/dashboard"); // Navigate back to dashboard
   };
+
+  // Fetch reports data from the backend when the component mounts
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/reports');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        setReports(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error:', error);
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+  
+    fetchReports();
+  }, []);
+   // Empty dependency array means this runs once when the component mounts
 
   return (
     <Box className="reports-container">
@@ -90,33 +80,37 @@ const Reports = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>
-                <strong>ID</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Device</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Status</strong>
-              </TableCell>
-              <TableCell>
-                <strong>User</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Date</strong>
-              </TableCell>
+              <TableCell><strong>DeviceID</strong></TableCell>
+              <TableCell><strong>Location</strong></TableCell>
+              <TableCell><strong>User</strong></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {dummyReports.map((report) => (
-              <TableRow key={report.id}>
-                <TableCell>{report.id}</TableCell>
-                <TableCell>{report.device}</TableCell>
-                <TableCell>{report.status}</TableCell>
-                <TableCell>{report.user}</TableCell>
-                <TableCell>{report.date}</TableCell>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan="3" style={{ textAlign: "center" }}>Loading...</TableCell>
               </TableRow>
-            ))}
+            ) : error ? (
+              <TableRow>
+                <TableCell colSpan="3" style={{ textAlign: "center" }}>
+                  Error: {error}
+                </TableCell>
+              </TableRow>
+            ) : reports.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan="3" style={{ textAlign: "center" }}>
+                  No data available
+                </TableCell>
+              </TableRow>
+            ) : (
+              reports.map((report) => (
+                <TableRow key={report.DeviceID}>
+                  <TableCell>{report.DeviceID}</TableCell>
+                  <TableCell>{report.Location}</TableCell>
+                  <TableCell>{report.User}</TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
