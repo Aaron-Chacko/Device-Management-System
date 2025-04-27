@@ -12,10 +12,34 @@ const AddActivity = () => {
 
   const navigate = useNavigate(); // Hook for navigation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Replace with your API call
-    alert("Activity Added Successfully!");
+
+    try {
+      const response = await fetch("http://localhost:5000/add-activity", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          activityID,
+          createTime,
+          loginTime,
+          lastConnect,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert("Activity Added Successfully! 🎉");
+        navigate("/edit"); // or wherever you wanna go after adding
+      } else {
+        alert("Failed to add activity. 😞");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error, try again later 🚨");
+    }
   };
 
   const handleMenuClick = () => {
@@ -126,7 +150,7 @@ const AddActivity = () => {
             }}
           />
 
-<TextField
+          <TextField
             label="Last Connect" //change
             type="date"
             fullWidth

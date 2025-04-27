@@ -25,4 +25,18 @@ app.post('/login', async (req, res) => {
   });
 });
 
+app.post('/add-activity', (req, res) => {
+  const { activityID, createTime, loginTime, lastConnect } = req.body;
+
+  const query = "INSERT INTO deviceactivity (ActivityID, CreateTime, LoginTime, LastConnect) VALUES (?, ?, ?, ?)";
+  db.query(query, [activityID, createTime, loginTime, lastConnect], (err, result) => {
+    if (err) {
+      console.error("Error inserting activity:", err);
+      return res.status(500).json({ success: false });
+    }
+    return res.json({ success: true });
+  });
+});
+
 app.listen(5000, () => console.log("Server running on http://localhost:5000"));
+
