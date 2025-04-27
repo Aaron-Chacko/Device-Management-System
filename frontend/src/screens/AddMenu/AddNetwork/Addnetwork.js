@@ -15,10 +15,40 @@ const AddNetwork = () => {
 
   const navigate = useNavigate(); // Hook for navigation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit logic for adding the network (you can use an API call here)
-    alert("Network Added Successfully!");
+
+    // Prepare the data to be sent to the API or backend
+    const networkData = {
+      networkID,
+      networkType,
+      networkLoopbackIP,
+      networkLANIP,
+      networkWANIP,
+      networkLANStatus,
+      networkWANStatus,
+    };
+
+    try {
+      // Example API call to add a new network
+      const response = await fetch("/api/networks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(networkData),
+      });
+
+      if (response.ok) {
+        alert("Network Added Successfully!");
+        navigate("/network-list"); // Navigate to the network list page after successful submission
+      } else {
+        alert("Failed to add network.");
+      }
+    } catch (error) {
+      console.error("Error adding network:", error);
+      alert("Error adding network. Please try again.");
+    }
   };
 
   const handleMenuClick = () => {
@@ -66,7 +96,6 @@ const AddNetwork = () => {
           Add New Network
         </Typography>
         <form onSubmit={handleSubmit}>
-
           <TextField
             label="Network ID" // change
             variant="outlined"
