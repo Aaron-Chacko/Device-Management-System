@@ -11,10 +11,33 @@ const AddVersion = () => {
 
   const navigate = useNavigate(); // Hook for navigation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit logic for adding the version (you can use an API call here)
-    alert("Version Added Successfully!");
+
+    try {
+      const response = await fetch("http://localhost:5000/add-version", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          versionID,
+          versionsoft,
+          versionhard,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert("Version Added Successfully! 🎉");
+        navigate("/edit"); // Navigate to your desired page
+      } else {
+        alert("Failed to add version. 😞");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error, try again later 🚨");
+    }
   };
 
   const handleMenuClick = () => {
