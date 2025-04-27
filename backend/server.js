@@ -79,6 +79,26 @@ app.post('/add-version', (req, res) => {
   });
 });
 
+app.get('/get-activities', (req, res) => {
+  const query = "SELECT ActivityID, CreateTime, LoginTime, LastConnect FROM deviceactivity"; 
+  console.log("Running query:", query);  // Log the query being executed
+
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error("Error fetching activities:", err);
+      return res.status(500).json({ success: false });
+    }
+
+    console.log("Fetched activities:", result);  // Log the fetched data
+
+    if (result.length === 0) {
+      console.log("No activities found in the database.");
+    }
+
+    res.json({ success: true, activities: result });
+  });
+});
+
 
 app.listen(5000, () => console.log("Server running on http://localhost:5000"));
 

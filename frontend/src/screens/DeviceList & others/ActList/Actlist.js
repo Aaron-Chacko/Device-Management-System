@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react"; // Make sure useEffect is imported
 import "./Actlist.css";
 import {
   Box,
@@ -9,61 +9,48 @@ import {
   TableCell,
   TableBody,
   Paper,
-  AppBar,
-  Toolbar,
   Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const activity = [
-  {
-    id: 1,
-    create: "2025-01-20 14:24:04",
-    login: "2025-01-29 12:01:15",
-    last: "2025-01-29 15:47:55",
-  },
-  {
-    id: 2,
-    create: "2025-01-20 15:21:01",
-    login: "2025-01-31 15:01:10",
-    last: "2025-01-31 18:34:31",
-  },
-  {
-    id: 3,
-    create: "2025-01-20 15:20:05",
-    login: "2025-01-31 15:00:15",
-    last: "2025-01-31 18:34:32",
-  },
-  {
-    id: 4,
-    create: "2025-01-20 15:30:14",
-    login: "2025-01-21 16:21:50",
-    last: "2025-01-22 10:05:39",
-  },
-  {
-    id: 5,
-    create: "2025-01-20 15:26:55",
-    login: "2025-01-31 16:21:12",
-    last: "2025-01-31 18:35:11",
-  },
-  {
-    id: 6,
-    create: "2023-12-21 13:43:14",
-    login: "2025-03-25 18:45:54",
-    last: "2025-03-28 12:06:36",
-  },
-  {
-    id: 7,
-    create: "2023-12-19 18:32:40",
-    login: "2025-03-22 12:15:33",
-    last: "2025-03-28 12:06:11",
-  },
-];
-
 const ActivityList = () => {
+  const [activities, setActivities] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/get-activities");
+  
+        if (!response.ok) {
+          throw new Error("Error fetching data");
+        }
+  
+        const data = await response.json();
+        console.log("Fetched data:", data);  // Log the response data
+  
+        if (data.success) {
+          setActivities(data.activities);
+        } else {
+          setError("Error fetching data");
+        }
+      } catch (error) {
+        setError("Error fetching data");
+        console.error("Error:", error);
+      }
+    };
+  
+    fetchActivities();
+  }, []);  
+
   return (
     <Box className="list-container">
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={4}
+      >
         <Typography
           variant="h4"
           className="list-heading"
@@ -78,7 +65,7 @@ const ActivityList = () => {
         >
           Activity List
         </Typography>
-  
+
         <Button
           variant="contained"
           sx={{ backgroundColor: "#FF6500" }}
@@ -89,12 +76,14 @@ const ActivityList = () => {
         </Button>
       </Box>
 
+      {error && <Typography color="error">{error}</Typography>}
+
       <Paper elevation={4} className="table">
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>
-                <b>ID</b>
+                <b>Activity ID</b>
               </TableCell>
               <TableCell>
                 <b>Create Time</b>
@@ -108,14 +97,20 @@ const ActivityList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {activity.map((activity) => (
-              <TableRow key={activity.id}>
-                <TableCell>{activity.id}</TableCell>
-                <TableCell>{activity.create}</TableCell>
-                <TableCell>{activity.login}</TableCell>
-                <TableCell>{activity.last}</TableCell>
+            {activities.length > 0 ? (
+              activities.map((activity) => (
+                <TableRow key={activity.ActivityID}>
+                  <TableCell>{activity.ActivityID}</TableCell>
+                  <TableCell>{activity.CreateTime}</TableCell>
+                  <TableCell>{activity.LoginTime}</TableCell>
+                  <TableCell>{activity.LastConnect}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={4}>No activities found</TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </Paper>
