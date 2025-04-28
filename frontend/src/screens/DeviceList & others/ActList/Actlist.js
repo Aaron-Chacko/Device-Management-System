@@ -79,6 +79,7 @@ const ActivityList = () => {
       {error && <Typography color="error">{error}</Typography>}
 
       <Paper elevation={4} className="table">
+       <Box sx={{ maxHeight: 450, overflow: "auto" }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -113,6 +114,7 @@ const ActivityList = () => {
             )}
           </TableBody>
         </Table>
+        </Box>
       </Paper>
     </Box>
   );

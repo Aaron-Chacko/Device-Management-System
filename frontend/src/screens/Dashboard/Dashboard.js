@@ -99,7 +99,7 @@ const Dashboard = () => {
               <DashboardCard
                 title="Total Devices"
                 icon={<DevicesIcon className="dashboard-icon" />}
-                count="132"
+                count="199"
               />
             </motion.div>
           </Link>
@@ -127,9 +127,9 @@ const Dashboard = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <DashboardCard
-                title="Add or Edit"
+                title="Add Elements"
                 icon={<AddBoxIcon className="dashboard-icon" />}
-                count="+"
+                //count="+"
               />
             </motion.div>
           </Link>
@@ -159,7 +159,7 @@ const Dashboard = () => {
               <DashboardCard
                 title="Assigned Devices"
                 icon={<AssignmentIndIcon className="dashboard-icon" />}
-                count="89"
+                //count="89"
               />
             </motion.div>
           </Link>
@@ -189,7 +189,7 @@ const Dashboard = () => {
               <DashboardCard
                 title="Reports"
                 icon={<ReportIcon className="dashboard-icon" />}
-                count="View"
+                //count="View"
               />
             </motion.div>
           </Link>

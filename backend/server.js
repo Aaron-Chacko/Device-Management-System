@@ -29,7 +29,7 @@ app.post('/login', async (req, res) => {
   });
 });
 
-// Add activity route
+// ------------------------------------------------------add data--------------------------------------------------- //
 app.post('/add-activity', (req, res) => {
   const { activityID, createTime, loginTime, lastConnect } = req.body;
 
@@ -87,7 +87,7 @@ app.post('/add-version', (req, res) => {
   });
 });
 
-// Get activities route
+// --------------------------------------------get lists data------------------------------------------- //
 app.get('/get-activities', (req, res) => {
   const query = "SELECT ActivityID, CreateTime, LoginTime, LastConnect FROM deviceactivity"; 
   console.log("Running query:", query);
@@ -108,7 +108,34 @@ app.get('/get-activities', (req, res) => {
   });
 });
 
-// Assign device route
+app.get('/get-devices', (req, res) => {
+  const query = `
+    SELECT 
+      DeviceID, DeviceName, RouterSN, DeviceGroup, OnlineStatus, 
+      LocationID, VersionID, NetworkID, ActivityID
+    FROM devices;
+  `;
+  console.log("Running query:", query);
+
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error("Error fetching devices:", err);
+      return res.status(500).json({ success: false, message: "Database error" });
+    }
+
+    console.log("Fetched devices:", result);
+
+    if (result.length === 0) {
+      console.log("No devices found in the database.");
+      return res.status(404).json({ success: false, message: "No devices found" });
+    }
+
+    res.json({ success: true, devices: result });
+  });
+});
+
+
+// -------------------------------------------assign device------------------------------------------- //
 app.post('/assign-device', (req, res) => {
   const { deviceID, location, user } = req.body;
 
