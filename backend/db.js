@@ -2,9 +2,9 @@ const mysql = require('mysql2');
 
 const db = mysql.createConnection({
   host: '127.0.0.1',  // Your DB host
-  user: 'aaron',       // Your DB username
-  password: 'aaron',       // Your DB password
-  database: 'm2m_device_management_system',  // Your DB name
+  user: ' ',       // Your DB username
+  password: ' ',       // Your DB password
+  database: ' ',  // Your DB name
   port: 3306, // Your DB port (default is 3306 for MySQL)
 });
 
